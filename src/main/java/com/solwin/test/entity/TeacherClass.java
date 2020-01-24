@@ -36,15 +36,7 @@ public class TeacherClass {
 	@Column(name="GTCP_PAY")
 	@Null
 	private float pay;
-	@Column(name="GTCP_DATE")
-	@Temporal(TemporalType.DATE)
-	@NotNull
-	private Date date;
-	@JoinColumn(name="GTCP_GCST_ID")
-	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull
-	private ClassStatus classStatus;
-	
+
 	public BigInteger getId() {
 		return id;
 	}
@@ -68,17 +60,5 @@ public class TeacherClass {
 	}
 	public void setPay(float pay) {
 		this.pay = pay;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public ClassStatus getClassStatus() {
-		return classStatus;
-	}
-	public void setClassStatus(ClassStatus classStatus) {
-		this.classStatus = classStatus;
 	}
 }

@@ -31,33 +31,26 @@ import org.hibernate.annotations.DynamicInsert;
 public class ClassSchedule {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="GCLS_ID", columnDefinition="serial")
+	@Column(name="GCSC_ID", columnDefinition="serial")
 	private BigInteger id;
-	@JoinColumn(name="GCLS_GCTY_ID")
+	@JoinColumn(name="GCSC_GCLS_ID")
 	@OneToOne(cascade = CascadeType.ALL)
 	@NotNull
-	private ClassType classType;
-	@JoinColumn(name="GCLS_GPLA_ID")
-	@OneToOne(cascade = CascadeType.ALL)
-	@Null
-	private Place place;
-	@Column(name="GCLS_MAX_CAPACITY")
+	private GClass gClass;
+	@Column(name="GCSC_MAX_CAPACITY")
 	@NotNull
 	private Integer maxCapacity;
-	@Column(name="GCLS_ENROLLS")
+	@Column(name="GCSC_ENROLLS")
 	@NotNull
 	private Integer enrolls;
-	@Column(name="GCLS_WEEK_DAY")
+	@Column(name="GCSC_DATE")
+	@Temporal(TemporalType.DATE)
 	@NotNull
-	private Integer weekDay;
-	@Column(name="GCLS_TIME_START")
-	@Temporal(TemporalType.TIME)
+	private Date date;
+	@JoinColumn(name="GCSC_GCST_ID")
+	@OneToOne(cascade = CascadeType.ALL)
 	@NotNull
-	private Date timeStart;
-	@Column(name="GCLS_TIME_END")
-	@Temporal(TemporalType.TIME)
-	@NotNull
-	private Date timeEnd;
+	private ClassStatus classStatus;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "GYM_USER_SCHEDULE",
 	           joinColumns = {
@@ -80,18 +73,6 @@ public class ClassSchedule {
 	public void setId(BigInteger id) {
 		this.id = id;
 	}
-	public ClassType getClassType() {
-		return classType;
-	}
-	public void setClassType(ClassType classType) {
-		this.classType = classType;
-	}
-	public Place getPlace() {
-		return place;
-	}
-	public void setPlace(Place place) {
-		this.place = place;
-	}
 	public Integer getMaxCapacity() {
 		return maxCapacity;
 	}
@@ -104,24 +85,6 @@ public class ClassSchedule {
 	public void setEnrolls(Integer enrolls) {
 		this.enrolls = enrolls;
 	}
-	public Integer getWeekDay() {
-		return weekDay;
-	}
-	public void setWeekDay(Integer weekDay) {
-		this.weekDay = weekDay;
-	}
-	public Date getTimeStart() {
-		return timeStart;
-	}
-	public void setTimeStart(Date timeStart) {
-		this.timeStart = timeStart;
-	}
-	public Date getTimeEnd() {
-		return timeEnd;
-	}
-	public void setTimeEnd(Date timeEnd) {
-		this.timeEnd = timeEnd;
-	}
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -133,5 +96,23 @@ public class ClassSchedule {
 	}
 	public void setTeacherClass(Set<TeacherClass> teacherClass) {
 		this.teacherClass = teacherClass;
+	}
+	public GClass getgClass() {
+		return gClass;
+	}
+	public void setgClass(GClass gClass) {
+		this.gClass = gClass;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public ClassStatus getClassStatus() {
+		return classStatus;
+	}
+	public void setClassStatus(ClassStatus classStatus) {
+		this.classStatus = classStatus;
 	}
 }
